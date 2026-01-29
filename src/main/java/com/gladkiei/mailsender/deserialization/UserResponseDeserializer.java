@@ -1,4 +1,4 @@
-package com.gladkiei.mailsender;
+package com.gladkiei.mailsender.deserialization;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gladkiei.mailsender.dtos.UserResponseDto;
@@ -8,7 +8,7 @@ import org.apache.kafka.common.serialization.Deserializer;
 
 
 @Slf4j
-public class CustomDeserializer implements Deserializer<UserResponseDto> {
+public class UserResponseDeserializer implements Deserializer<UserResponseDto> {
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
