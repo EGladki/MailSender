@@ -6,10 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Deserializer;
 
+import java.nio.charset.StandardCharsets;
+
 
 @Slf4j
 public class UserResponseDeserializer implements Deserializer<UserResponseDto> {
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     public UserResponseDto deserialize(String topic, byte[] data) {
@@ -19,7 +21,7 @@ public class UserResponseDeserializer implements Deserializer<UserResponseDto> {
                 return null;
             }
             System.out.println("Deserializing...");
-            return objectMapper.readValue(new String(data, "UTF-8"), UserResponseDto.class);
+            return objectMapper.readValue(new String(data, StandardCharsets.UTF_8), UserResponseDto.class);
         } catch (Exception e) {
             throw new SerializationException("Error when deserializing byte[] to MessageDto");
         }

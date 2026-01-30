@@ -1,6 +1,6 @@
 package com.gladkiei.mailsender.kafka.listener;
 
-import org.springframework.kafka.support.Acknowledgment;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 public interface EventListener<T> {
 
@@ -8,6 +8,6 @@ public interface EventListener<T> {
 
     Class<T> payloadType();
 
-    void listen(T t, Acknowledgment acknowledgment);
+    void listen(T t) throws JsonProcessingException;
 
 }
