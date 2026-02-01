@@ -1,16 +1,19 @@
 package com.gladkiei.mailsender.kafka.listener;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gladkiei.mailsender.dtos.TaskResponseDto;
+import com.gladkiei.mailsender.api.client.EmailServiceSenderApiClient;
 import com.gladkiei.mailsender.dtos.UserResponseDto;
-import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.support.Acknowledgment;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
+
+@Slf4j
 public class WelcomeEventListener implements EventListener<UserResponseDto> {
+
+    private final EmailServiceSenderApiClient emailServiceSenderApiClient;
 
     @Override
     public String eventType() {
@@ -23,7 +26,13 @@ public class WelcomeEventListener implements EventListener<UserResponseDto> {
     }
 
     @Override
-    public void listen(@Payload UserResponseDto userResponseDto) throws JsonProcessingException {
+    public void listen(@Payload UserResponseDto userResponseDto) {
         System.out.printf("Received email sending tasks: %s%n", userResponseDto);
+
+//        log.info("Subscribing");
+//        emailServiceSenderApiClient.subscribe(userResponseDto.email());
+
+        log.info("Sending email");
+        emailServiceSenderApiClient.sendEmail(userResponseDto.email());
     }
 }

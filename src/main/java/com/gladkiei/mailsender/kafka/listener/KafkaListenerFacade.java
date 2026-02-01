@@ -3,6 +3,7 @@ package com.gladkiei.mailsender.kafka.listener;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.messaging.handler.annotation.Header;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class KafkaListenerFacade {
 
     private final ObjectMapper objectMapper;
@@ -26,8 +28,10 @@ public class KafkaListenerFacade {
                        Acknowledgment acknowledgment) throws JsonProcessingException {
         EventListener<?> eventListener = registry.get(eventType);
         Object o = objectMapper.readValue(json, eventListener.payloadType());
+        log.info("Deserialized json object: {}", o);
+
         eventListenerInvoker.invoke(eventListener, o);
-        System.out.printf("Deserialized json object: %s%n", o);
+
         acknowledgment.acknowledge();
     }
 }
