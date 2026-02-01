@@ -1,0 +1,39 @@
+//    https://api.unisender.com/ru/api/sendEmail?
+//    format=json&
+//    api_key=KEY &
+//    email=TONAME <EMAILTO>&
+//    sender_name=FROMNAME&
+//    sender_email=FROMMAIL&
+//    subject=SUBJECT&
+//    body=HTMLBODY&
+//    list_id=X&
+//    attachments[filename1]=FILE1&attachments[filename2]=FILE2&
+//    lang=LANG&
+//    error_checking=1&
+//    metadata[meta1]=value1&
+//    metadata[meta2]=value2
+
+    //https://api.unisender.com/ru/api/getLists?format=json&api_key=6y3teybgpt7ofnm6a3dhotmieiwsfqu5js11zuoe
+
+subscribe
+https://api.unisender.com/ru/api/
+subscribe?
+format=json&
+api_key=KEY&
+list_ids=134,135&
+fields[email]=test@example.org&
+tags=MyTag1,
+MyTag2&
+double_optin=0&
+overwrite=0
+
+
+LinkedMultiValueMap<String, String> defaultUriVariables = new LinkedMultiValueMap<>();
+        defaultUriVariables.add("format", "json");
+        defaultUriVariables.add("api_key", apiKey);
+        defaultUriVariables.add("email", email);
+        defaultUriVariables.add("sender_email", senderEmail);
+        defaultUriVariables.add("sender_name", senderName);
+        defaultUriVariables.add("subject", senderName);
+        defaultUriVariables.add("body", htmlBody);
+        defaultUriVariables.add("list_id", listId);
