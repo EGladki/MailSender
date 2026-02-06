@@ -1,7 +1,6 @@
 package com.gladkiei.mailsender.dtos;
 
-public record UserResponseDto(
-        Long id,
+public record RegistrationEventDto(
         String email
 ) {
 }
